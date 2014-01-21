@@ -43,7 +43,14 @@ def insert(key, value, fmt, meta):
 
     """
 
+    # source directory for insert files
+    if 'dir' in meta:
+        idir = meta['dir']['c']
+    else:
+        idir = '.' 
+
     if key == 'Para':
+
         s = stringify(value)
 
         first = value[0]['c']
@@ -57,9 +64,7 @@ def insert(key, value, fmt, meta):
             value[0]['c'] = first[2:]
             value[-1]['c'] = last[:-2]
 
-            # directory in which to find insert files
-            idir = meta['dir']['c']
-            
+
             contents = []
             for node in value:
                 if node['t'] == 'Str' and node['c']:

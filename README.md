@@ -1,12 +1,12 @@
 
 
-Pandoc Markdown extension for inserting file contents into code blocks. Reads the specified files and inserts them as separate codeblock. Works on the Pandoc AST. 
+Pandoc Markdown extension for inserting file contents into code blocks. Inserts the specified files as codeblocks, one codeblock per file. Built to keep external source code synced with embedded versions in lecture notes.
     
 Markdown syntax:
  
 	[[ filename1 (filename2) ... ]]
 
-Call it as a pandoc filter:
+Called as a pandoc filter:
 
      pandoc --filter ./insert.py	
 

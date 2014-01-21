@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
-from pandocfilters import toJSONFilter, CodeBlock
+import sys
+import os
+
+from pandocfilters import toJSONFilter, CodeBlock, stringify
 
 """ 
 Pandoc markdown extension for inserting file contents
@@ -41,6 +44,7 @@ def insert(key, value, fmt, meta):
     """
 
     if key == 'Para':
+        s = stringify(value)
 
         first = value[0]['c']
         last = value[-1]['c']
@@ -52,11 +56,14 @@ def insert(key, value, fmt, meta):
             # [[filename or filename]]
             value[0]['c'] = first[2:]
             value[-1]['c'] = last[:-2]
+
+            # directory in which to find insert files
+            idir = meta['dir']['c']
             
             contents = []
             for node in value:
                 if node['t'] == 'Str' and node['c']:
-                    fname = node['c']
+                    fname = os.path.join(idir, node['c'])
                     code = build_codeblock(fname)
                     contents.append(code)
                         
@@ -64,6 +71,5 @@ def insert(key, value, fmt, meta):
 
 
 if __name__ == "__main__":
-
     toJSONFilter(insert)
     

@@ -25,7 +25,7 @@ def build_codeblock(fname):
 
     try:
         with open(fname) as f:
-            raw = f.read()
+            raw = f.read().strip()
             code = CodeBlock(['', [], []], raw)
     except IOError:
         msg = "Could not find file '%s' to insert" % fname

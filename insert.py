@@ -34,7 +34,7 @@ def build_codeblock(fname):
     return code
 
     
-def insert(key, value, format, meta):
+def insert(key, value, fmt, meta):
     """ Parse Paragraph blocks, checking for the [[ ]] insert
     syntax.
 

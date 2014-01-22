@@ -20,7 +20,7 @@ pandoc --filter ./insert.py
     
 """
 
-def build_codeblock(fname):
+def build_codeblock(fname, lang=None):
     """ Construct and return pandoc AST CodeBlock from the 
     specified file. Raise an IOError if the file does not exist.
 
@@ -29,7 +29,8 @@ def build_codeblock(fname):
     try:
         with open(fname) as f:
             raw = f.read().strip()
-            code = CodeBlock(['', [], []], raw)
+            cls = [lang] if lang else []
+            code = CodeBlock(['', cls, []], raw)
     except IOError:
         msg = "Could not find file '%s' to insert" % fname
         raise IOError(msg)
@@ -39,7 +40,7 @@ def build_codeblock(fname):
     
 def insert(key, value, fmt, meta):
     """ Parse Paragraph blocks, checking for the [[ ]] insert
-    syntax.
+    syntax. 
 
     """
 
@@ -48,10 +49,13 @@ def insert(key, value, fmt, meta):
         idir = meta['dir']['c']
     else:
         idir = '.' 
+    # language of inserted code (for syntax highlighting)
+    if 'lang' in meta:
+        lang = meta['lang']['c']
+    else:
+        lang = None
 
     if key == 'Para':
-
-        s = stringify(value)
 
         first = value[0]['c']
         last = value[-1]['c']
@@ -64,12 +68,11 @@ def insert(key, value, fmt, meta):
             value[0]['c'] = first[2:]
             value[-1]['c'] = last[:-2]
 
-
             contents = []
             for node in value:
                 if node['t'] == 'Str' and node['c']:
                     fname = os.path.join(idir, node['c'])
-                    code = build_codeblock(fname)
+                    code = build_codeblock(fname, lang)
                     contents.append(code)
                         
             return contents

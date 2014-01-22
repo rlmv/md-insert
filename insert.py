@@ -24,6 +24,8 @@ def build_codeblock(fname, lang=None):
     """ Construct and return pandoc AST CodeBlock from the 
     specified file. Raise an IOError if the file does not exist.
 
+    lang is a string specifying the language of the inserted code.
+
     """
 
     try:
@@ -49,6 +51,7 @@ def insert(key, value, fmt, meta):
         idir = meta['dir']['c']
     else:
         idir = '.' 
+
     # language of inserted code (for syntax highlighting)
     if 'lang' in meta:
         lang = meta['lang']['c']

@@ -5,20 +5,6 @@ import os
 
 from pandocfilters import toJSONFilter, CodeBlock, stringify
 
-""" 
-Pandoc markdown extension for inserting file contents
-into code blocks. Reads the specified files and inserts
-them as separate codeblock. Works on the pandoc AST. 
-    
-Markdown syntax:
-
-[[ filename1 (filename2) ... ]]
-
-Call it as a pandoc filter:
-
-pandoc --filter ./insert.py
-    
-"""
 
 def build_codeblock(fname, lang=None):
     """ Construct and return pandoc AST CodeBlock from the 

@@ -50,12 +50,16 @@ def insert(key, value, fmt, meta):
         last = value[-1]['c']
 
         if first.startswith('[[') and last.endswith(']]'):
-            
-            # remove insert syntax for the cases where
-            # there is no space between brackets, eg.
-            # [[filename or filename]]
-            value[0]['c'] = first[2:]
-            value[-1]['c'] = last[:-2]
+
+            # only one element
+            if len(value) == 1:
+                value[0]['c'] = first[2:-2]
+            else:
+                # move insert syntax for the cases where
+                # there is no space between brackets, eg.
+                # [[filename or filename]]
+                value[0]['c'] = first[2:]
+                value[-1]['c'] = last[:-2]
 
             contents = []
             for node in value:
@@ -66,7 +70,7 @@ def insert(key, value, fmt, meta):
                         
             return contents
 
-
+        
 if __name__ == "__main__":
     toJSONFilter(insert)
     

@@ -12,8 +12,8 @@ Install the filter script onto the system:
     
 Markdown syntax extension:
   
-  ``` { insert=FILENAME }
-  ```	
+    \`\`\` { insert=FILENAME }
+    \`\`\`	
 
 Pandoc supports code highlighting with classes:
       

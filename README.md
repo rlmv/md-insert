@@ -1,5 +1,4 @@
 
-
 Pandoc Markdown extension for inserting file contents into code blocks. Inserts the specified files into the codeblock. Built to keep external source code synced with embedded versions in lecture notes.
 
 Requires the Python `pandocfilters` package:
@@ -12,13 +11,13 @@ Install the filter script onto the system:
     
 Markdown syntax extension:
   
-    \`\`\` { insert=FILENAME }
-    \`\`\`	
+    ``` { insert=FILENAME }
+    ```	
 
 Pandoc supports code highlighting with classes:
       
-  ``` { insert=FILENAME .javascript }
-  ```
+    ``` { insert=FILENAME .javascript }
+    ```
 
 Called as a Pandoc filter:
 

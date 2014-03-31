@@ -31,7 +31,7 @@ def insert(key, value, fmt, meta):
 
         # each key-value pair:
         for attr in value[0][2]: 
-            if 'insert' == attr[0]:
+            if 'insert' == attr[0].lower():
                 fname = os.path.join(idir, attr[1])
                 code.append(read_file(fname))
 

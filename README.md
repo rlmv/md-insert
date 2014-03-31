@@ -1,6 +1,10 @@
 
 
-Pandoc Markdown extension for inserting file contents into code blocks. Inserts the specified files as codeblocks, one codeblock per file. Built to keep external source code synced with embedded versions in lecture notes.
+Pandoc Markdown extension for inserting file contents into code blocks. Inserts the specified files into the codeblock. Built to keep external source code synced with embedded versions in lecture notes.
+
+Requires the Python `pandocfilters` package:
+
+    pip install pandocfilters
 
 Install the filter script onto the system:
    
@@ -8,7 +12,13 @@ Install the filter script onto the system:
     
 Markdown syntax extension:
   
-    [[ filename1 (filename2) ... ]]
+  ``` { insert=FILENAME }
+  ```	
+
+Pandoc supports code highlighting with classes:
+      
+  ``` { insert=FILENAME .javascript }
+  ```
 
 Called as a Pandoc filter:
 
@@ -17,12 +27,4 @@ Called as a Pandoc filter:
 To include source files from a directory other than the current directory we use a Pandoc metadata argument:
    
     pandoc --filter md_insert.py --metadata dir=target_dir
-
-We also support syntax highlighting through another metadata flag:
-   
-    pandoc --filter md_insert.py --metadata lang=javascript
-
-Requires the Python `pandocfilters` package:
-
-    pip install pandocfilters
     

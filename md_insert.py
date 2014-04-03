@@ -27,15 +27,16 @@ def insert(key, value, fmt, meta):
 
     if key == 'CodeBlock':
         
-        code = []
+        insert_code = []
 
         # each key-value pair:
         for attr in value[0][2]: 
             if 'insert' == attr[0].lower():
                 fname = os.path.join(idir, attr[1])
-                code.append(read_file(fname))
+                insert_code.append(read_file(fname))
 
-        return CodeBlock(value[0], '\n\n'.join(code))
+        if insert_code:
+            return CodeBlock(value[0], '\n\n'.join(code))
         
 if __name__ == "__main__":
     toJSONFilter(insert)

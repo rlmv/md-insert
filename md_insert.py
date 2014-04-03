@@ -36,7 +36,7 @@ def insert(key, value, fmt, meta):
                 insert_code.append(read_file(fname))
 
         if insert_code:
-            return CodeBlock(value[0], '\n\n'.join(code))
+            return CodeBlock(value[0], '\n\n'.join(insert_code))
         
 if __name__ == "__main__":
     toJSONFilter(insert)
